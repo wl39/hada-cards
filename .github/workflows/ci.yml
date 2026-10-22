@@ -2,6 +2,7 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -26,3 +27,34 @@ jobs:
           node scripts/start-studio.mjs
           node scripts/start-studio.mjs
           curl --fail http://127.0.0.1:5180/
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - uses: actions/configure-pages@v5
+      - run: npm ci
+      - run: npm run build:studio
+        env:
+          STUDIO_BASE_PATH: /hada-cards/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: studio-dist
+      - name: Deploy Card Studio
+        id: deployment
+        uses: actions/deploy-pages@v4

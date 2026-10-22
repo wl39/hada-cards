@@ -2,19 +2,25 @@
 
 48 original generative backgrounds. Mix any colors, choose a seed, then add an optional date and caption. Browser rendering with no service, account or HADA data dependency.
 
-**[Open in GitHub Codespaces ↗](https://codespaces.new/wl39/hada-cards?quickstart=1)** · [한국어](#한국어) · [API](#api)
+**[Open Card Studio ↗](https://wl39.github.io/hada-cards/)** · [한국어](#한국어) · [API](#api) · [Codespaces](https://codespaces.new/wl39/hada-cards?quickstart=1)
 
-The complete editor is in this repository (`studio/`). Open it in GitHub Codespaces or run it locally; no ChatGPT account or hosting is needed. GitHub READMEs [remove executable scripts](https://github.com/github/markup#github-markup), so the button opens a runnable workspace.
+Choose backgrounds, colors and dates in the public editor. No account or installation is needed. GitHub READMEs [remove executable scripts](https://github.com/github/markup#github-markup), so the button opens the editor on GitHub Pages. The complete source is in this repository (`studio/`).
 
-[![HADA Card Studio](docs/studio.png)](https://codespaces.new/wl39/hada-cards?quickstart=1)
+[![HADA Card Studio](docs/studio.png)](https://wl39.github.io/hada-cards/)
 
 ## 한국어
 
 배경·색상·날짜를 서로 독립적으로 조합하는 카드 모듈입니다. Studio에서 48개 배경 선택, 색상 추가·삭제, 색상별 비율·밝기, 날짜 형식·문구·시드를 편집하고 PNG 또는 카드 JSON을 저장할 수 있습니다. JSON 불러오기와 브라우저 자동 저장도 지원합니다.
 
-저장소는 비공개입니다. 위 Codespaces 버튼에서 작업 공간을 생성하거나 다시 열면 의존성을 설치하고 편집기를 실행합니다. 편집기 포트(5180)는 기본 비공개이며, 각 사용자는 저장소 접근 권한으로 자신의 Codespace를 사용합니다. ChatGPT 계정은 필요하지 않습니다. 소스는 MIT 라이선스로 공개할 수 있도록 준비했습니다. HADA에서만 사용하던 외부 라이선스 배경 4개는 포함하지 않았습니다.
+저장소와 편집기를 공개합니다. 위 Card Studio 버튼에서 로그인·설치 없이 바로 편집할 수 있습니다. 작업 내용은 현재 브라우저에 저장되며 PNG·JSON으로 내려받을 수 있습니다. 소스는 MIT 라이선스입니다. HADA에서만 사용하던 외부 라이선스 배경 4개는 포함하지 않았습니다. 소스를 수정하려면 Codespaces 또는 로컬 실행을 사용할 수 있습니다.
 
 ## Run the studio
+
+### Public editor
+
+Open **[Card Studio](https://wl39.github.io/hada-cards/)**. Your recipe stays in your browser; download JSON to move it to another device. The site receives no card uploads and has no HADA account connection.
+
+GitHub Actions publishes the studio to GitHub Pages after the Node 22 and 24 checks pass on `main`. This updates the public editor; HADA package updates remain separate (see [Updating HADA](#updating-hada)). The [Pages workflow](.github/workflows/ci.yml) follows [GitHub's deployment guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ### GitHub Codespaces
 
@@ -37,7 +43,13 @@ Open `http://127.0.0.1:5180`. The studio stores only its current recipe in this 
 
 ## Install
 
-This package is not published on the public npm registry. Build a versioned archive from this private repository:
+This package is not published on the npm registry. Install the built archive from the [GitHub release](https://github.com/wl39/hada-cards/releases/tag/v0.1.0):
+
+```sh
+npm install https://github.com/wl39/hada-cards/releases/download/v0.1.0/hada-cards-0.1.0.tgz
+```
+
+Or build a versioned archive from source:
 
 ```sh
 npm ci

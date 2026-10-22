@@ -7,6 +7,6 @@ const forwardedHost = codespace && forwardingDomain ? `${codespace}-5180.${forwa
 export default defineConfig({
   server: { port: 5180, strictPort: true, allowedHosts: forwardedHost ? [forwardedHost] : [] },
   root: fileURLToPath(new URL('.', import.meta.url)),
-  base: './',
+  base: process.env.STUDIO_BASE_PATH || './',
   build: { outDir: '../studio-dist', emptyOutDir: true, sourcemap: false },
 });
