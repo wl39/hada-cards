@@ -1,0 +1,69 @@
+{
+  "name": "@hada/cards",
+  "version": "0.1.0",
+  "description": "Independent generative backgrounds, weighted colors and date cards for the browser.",
+  "type": "module",
+  "license": "MIT",
+  "author": "wl39",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wl39/hada-cards.git"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js"
+    },
+    "./shaders": {
+      "types": "./dist/shaders.d.ts",
+      "import": "./dist/shaders.js"
+    },
+    "./catalog-shaders": {
+      "types": "./dist/catalog-shaders.d.ts",
+      "import": "./dist/catalog-shaders.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "NOTICE.md",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "check": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.studio.json",
+    "dev": "vite studio --host 127.0.0.1 --port 5180",
+    "build:studio": "npm run build && vite build --config studio/vite.config.ts",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "^5.9.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}
