@@ -21,6 +21,12 @@ jobs:
       - run: npm test
       - run: npm run check
       - run: npm run build:studio
+      - name: Compile and link background shaders
+        if: matrix.node == 24
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y glslang-tools
+          node scripts/check-shaders.mjs
       - run: npm pack --dry-run
       - name: Check Codespaces startup
         run: |

@@ -1,6 +1,6 @@
 {
   "name": "@hada/cards",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Independent generative backgrounds, weighted colors and date cards for the browser.",
   "type": "module",
   "license": "MIT",

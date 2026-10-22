@@ -29,10 +29,11 @@ describe('independent composition', () => {
     expect(() => parseCardRecipe(JSON.stringify({ ...createCardRecipe(), rendererVersion: 2 }))).toThrow();
     expect(() => parseCardRecipe('null')).toThrow();
   });
-  it('contains only the 48 original backgrounds, with stable indices', () => {
-    expect(BACKGROUNDS).toHaveLength(48);
-    expect(new Set(BACKGROUNDS.map(b => b.index)).size).toBe(48);
-    expect(BACKGROUNDS.map(b => b.index)).toEqual([0, 1, 2, 3, ...Array.from({ length: 44 }, (_, i) => i + 8)]);
+  it('preserves released indices while allowing new original backgrounds', () => {
+    expect(BACKGROUNDS.length).toBeGreaterThanOrEqual(48);
+    expect(new Set(BACKGROUNDS.map(b => b.index)).size).toBe(BACKGROUNDS.length);
+    expect(new Set(BACKGROUNDS.map(b => b.id)).size).toBe(BACKGROUNDS.length);
+    expect(BACKGROUNDS.slice(0, 48).map(b => b.index)).toEqual([0, 1, 2, 3, ...Array.from({ length: 44 }, (_, i) => i + 8)]);
     const renderer = createCardRenderer();
     expect(() => renderer.renderCardDataUrl(createCardRecipe({ background: 'silk' }))).toThrow('Unknown background');
     renderer.dispose();

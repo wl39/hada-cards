@@ -20,7 +20,7 @@ Choose backgrounds, colors and dates in the public editor. No account or install
 
 Open **[Card Studio](https://wl39.github.io/hada-cards/)**. Your recipe stays in your browser; download JSON to move it to another device. The site receives no card uploads and has no HADA account connection.
 
-GitHub Actions publishes the studio to GitHub Pages after the Node 22 and 24 checks pass on `main`. This updates the public editor; HADA package updates remain separate (see [Updating HADA](#updating-hada)). The [Pages workflow](.github/workflows/ci.yml) follows [GitHub's deployment guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+GitHub Actions publishes the studio to GitHub Pages after the Node 22 and 24 checks pass on `main`. HADA also follows verified module changes through its application test and deployment pipeline (see [Updating HADA](#updating-hada)). The [Pages workflow](.github/workflows/ci.yml) follows [GitHub's deployment guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 ### GitHub Codespaces
 
@@ -62,7 +62,13 @@ HADA commits this archive into `vendor/` and pins its integrity in `package-lock
 
 ## Updating HADA
 
-Changing this repository does **not** update HADA automatically. HADA pins a package archive: release a new version, update HADA's archive/lockfile, then test and deploy HADA. New backgrounds additionally need registration in HADA's backend catalog and an explicit release schedule. HADA's four separately licensed backgrounds remain application-specific. Preserve saved cards by adding a new background ID for a visually different design instead of overwriting an existing one.
+HADA's production host checks this repository every five minutes. A successful `main` CI run is required. It builds a commit-specific package, generates HADA's server catalog, compiles the combined shaders, runs HADA's frontend/backend tests and production builds, then deploys and checks the application. Failed tests leave the running version in place; failed deployment checks trigger rollback. A HADA source edit or another deployment pauses adoption until that application deployment is finished.
+
+New backgrounds are registered automatically and assigned to the next unfrozen, unreserved weekly slot. Existing cards, earned backgrounds, palette IDs, released weeks and administrator reservations are preserved. HADA keeps a package archive and source/commit lock for reproducible builds. No production credential or self-hosted production runner is configured in this public repository.
+
+To add a background, append its definition to `src/backgrounds.ts` using a new ID and unused index (52 or higher), add its GLSL branch to `src/catalog-shaders.ts` using the existing numbered-comment convention, and add it to `CONTINUOUS_COLOR_THEMES` if applicable. Commit to `main` after review. HADA needs no matching catalog edit. Existing IDs/indices cannot be removed or reassigned. Use a new ID for a different design; a shader fix under the same ID applies to all cards using that background. HADA's four separately licensed backgrounds remain application-specific.
+
+Codespaces is optional. Use the public studio to compose cards, or GitHub's file editor/local development to change the module source. Studio controls edit a card recipe, not repository source code.
 
 ## Usage
 

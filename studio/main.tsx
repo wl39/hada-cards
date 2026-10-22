@@ -73,7 +73,7 @@ function App() {
         {error && <p role="alert" className="error">{error}</p>}
       </section>
       <section className="controls" aria-label="카드 편집">
-        <div className="section-title"><h2>배경</h2><span className="count">48</span></div>
+        <div className="section-title"><h2>배경</h2><span className="count">{BACKGROUNDS.length}</span></div>
         <div className="family-tabs" aria-label="배경 분류">{THEME_FAMILIES.map(value => <button key={value} aria-pressed={family === value} onClick={() => setFamily(value)}>{THEME_FAMILY_LABELS[value].ko}</button>)}</div>
         <div className="background-grid">{BACKGROUNDS.filter(background => background.family === family).map(background => <button className="background-choice" key={background.id} aria-pressed={recipe.theme === background.id} onClick={() => update({ theme: background.id })}>
           <ArtCard recipe={{ ...recipe, theme: background.id }} className="background-thumb"/><span>{background.label}</span></button>)}</div>
@@ -94,7 +94,7 @@ function App() {
           <button className="reset" onClick={() => { setRecipe(initial()); setFamily('fluid'); setShowDate(true); setError(''); }}>초기화</button></div>
       </section>
     </main>
-    <footer><span>HADA CARDS</span><span>48 backgrounds · Independent by design</span><a href="https://github.com/wl39/hada-cards#usage">API ↗</a></footer>
+    <footer><span>HADA CARDS</span><span>{BACKGROUNDS.length} backgrounds · Independent by design</span><a href="https://github.com/wl39/hada-cards#usage">API ↗</a></footer>
   </>;
 }
 
