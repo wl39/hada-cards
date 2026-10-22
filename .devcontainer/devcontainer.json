@@ -1,0 +1,21 @@
+{
+  "name": "HADA Card Studio",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "remoteUser": "node",
+  "postCreateCommand": "npm ci",
+  "postStartCommand": "node scripts/start-studio.mjs",
+  "forwardPorts": [5180],
+  "portsAttributes": {
+    "5180": {
+      "label": "HADA Card Studio",
+      "onAutoForward": "openBrowser",
+      "protocol": "http",
+      "requireLocalPort": true
+    }
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": ["README.md"]
+    }
+  }
+}

@@ -2,19 +2,27 @@
 
 48 original generative backgrounds. Mix any colors, choose a seed, then add an optional date and caption. Browser rendering with no service, account or HADA data dependency.
 
-**[Open Card Studio ↗](https://hada-card-studio-wl39.jazzyswift513.chatgpt.site)** · [한국어](#한국어) · [API](#api)
+**[Open in GitHub Codespaces ↗](https://codespaces.new/wl39/hada-cards?quickstart=1)** · [한국어](#한국어) · [API](#api)
 
-The studio is owner-private and requires the owner's ChatGPT sign-in. Repository collaborators can run it locally. GitHub READMEs [remove executable scripts](https://github.com/github/markup#github-markup), so the interactive editor opens through the link above.
+The complete editor is in this repository (`studio/`). Open it in GitHub Codespaces or run it locally; no ChatGPT account or hosting is needed. GitHub READMEs [remove executable scripts](https://github.com/github/markup#github-markup), so the button opens a runnable workspace.
 
-[![HADA Card Studio](docs/studio.png)](https://hada-card-studio-wl39.jazzyswift513.chatgpt.site)
+[![HADA Card Studio](docs/studio.png)](https://codespaces.new/wl39/hada-cards?quickstart=1)
 
 ## 한국어
 
 배경·색상·날짜를 서로 독립적으로 조합하는 카드 모듈입니다. Studio에서 48개 배경 선택, 색상 추가·삭제, 색상별 비율·밝기, 날짜 형식·문구·시드를 편집하고 PNG 또는 카드 JSON을 저장할 수 있습니다. JSON 불러오기와 브라우저 자동 저장도 지원합니다.
 
-현재 소스 저장소와 호스팅 데모는 비공개입니다. 소스는 MIT 라이선스로 공개할 수 있도록 준비했습니다. HADA에서만 사용하던 외부 라이선스 배경 4개는 포함하지 않았습니다.
+저장소는 비공개입니다. 위 Codespaces 버튼에서 작업 공간을 생성하거나 다시 열면 의존성을 설치하고 편집기를 실행합니다. 편집기 포트(5180)는 기본 비공개이며, 각 사용자는 저장소 접근 권한으로 자신의 Codespace를 사용합니다. ChatGPT 계정은 필요하지 않습니다. 소스는 MIT 라이선스로 공개할 수 있도록 준비했습니다. HADA에서만 사용하던 외부 라이선스 배경 4개는 포함하지 않았습니다.
 
 ## Run the studio
+
+### GitHub Codespaces
+
+[Open or resume Card Studio](https://codespaces.new/wl39/hada-cards?quickstart=1). On first use, confirm **Create codespace** on GitHub. The repository's dev container installs dependencies and starts the editor on port **5180**; the forwarded preview opens automatically. If the browser blocks the new tab, open **HADA Card Studio** in the Codespaces **Ports** panel. Restart it with `node scripts/start-studio.mjs` if needed.
+
+[Forwarded ports are private by default](https://docs.github.com/en/codespaces/reference/security-in-github-codespaces); keep 5180 private. This is a personal development workspace, not a continuously hosted shared website. Each collaborator creates their own workspace. Stop the Codespace when finished; [GitHub's included usage and billing](https://docs.github.com/en/billing/concepts/product-billing/github-codespaces) apply.
+
+### Local
 
 Node.js 22.12+ (Node 24 recommended).
 
@@ -39,6 +47,10 @@ npm install /path/to/hada-cards/hada-cards-0.1.0.tgz
 ```
 
 HADA commits this archive into `vendor/` and pins its integrity in `package-lock.json`, so production builds need no private GitHub token. Commit the archive and lockfile together when updating a consumer. Runtime core dependencies: **zero**. React is an optional peer used only by `@hada/cards/react`.
+
+## Updating HADA
+
+Changing this repository does **not** update HADA automatically. HADA pins a package archive: release a new version, update HADA's archive/lockfile, then test and deploy HADA. New backgrounds additionally need registration in HADA's backend catalog and an explicit release schedule. HADA's four separately licensed backgrounds remain application-specific. Preserve saved cards by adding a new background ID for a visually different design instead of overwriting an existing one.
 
 ## Usage
 

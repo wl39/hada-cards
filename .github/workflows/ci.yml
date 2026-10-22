@@ -7,14 +7,22 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: ${{ matrix.node }}
           cache: npm
       - run: npm ci
       - run: npm test
       - run: npm run check
       - run: npm run build:studio
       - run: npm pack --dry-run
+      - name: Check Codespaces startup
+        run: |
+          node scripts/start-studio.mjs
+          node scripts/start-studio.mjs
+          curl --fail http://127.0.0.1:5180/
